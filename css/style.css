@@ -1,0 +1,551 @@
+/* ============================================================
+   PANCHOPELIS — Global Stylesheet
+   Theme: Dark cinematic, Netflix-inspired with blue accent
+   Font: Bebas Neue (headings) + DM Sans (body)
+   ============================================================ */
+
+/* ── GOOGLE FONTS IMPORT ──
+   Bebas Neue: bold cinematic display font for titles/logo
+   DM Sans: clean modern body font, easy to read on dark bg */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+/* ── CSS VARIABLES ──
+   Centralizing all colors and values here means if you ever
+   want to change the accent color you only change it in ONE place */
+:root {
+    --bg: #080b12;
+    /* main page background — deep navy black */
+    --surface: #0d1117;
+    /* slightly lighter surface for cards */
+    --card: #111827;
+    /* card background */
+    --card-hover: #1a2235;
+    /* card background on hover */
+    --border: rgba(255, 255, 255, 0.06);
+    /* subtle borders */
+    --accent: #2563eb;
+    /* primary blue accent — buttons, highlights */
+    --accent-light: #3b82f6;
+    /* lighter blue for hover states */
+    --accent-glow: rgba(37, 99, 235, 0.3);
+    /* blue glow for shadows */
+    --text: #e2e8f0;
+    /* primary text — off white, easier on eyes than pure white */
+    --muted: #64748b;
+    /* secondary text — dates, labels */
+    --nav-height: 70px;
+    /* consistent nav height used in multiple places */
+    --radius: 10px;
+    /* consistent border radius across components */
+    --transition: 0.25s ease;
+    /* consistent animation speed */
+}
+
+/* ── RESET & BASE ──
+   box-sizing: border-box means padding is included in width calculations
+   This prevents a lot of layout headaches */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Smooth scrolling for anchor links */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    min-height: 100vh;
+    /* Subtle noise texture overlay for depth — makes it feel less flat */
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+}
+
+/* Remove default link styles globally */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* ============================================================
+   NAVIGATION
+   Fixed to top so it stays visible while scrolling
+   backdrop-filter creates the frosted glass effect
+   ============================================================ */
+nav {
+    position: fixed;
+    /* sticks to top of viewport */
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--nav-height);
+    z-index: 1000;
+    /* always on top of everything */
+    display: flex;
+    align-items: center;
+    padding: 0 48px;
+    gap: 32px;
+
+    /* Frosted glass effect — blurs content behind the nav */
+    background: rgba(8, 11, 18, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    /* Safari support */
+    border-bottom: 1px solid var(--border);
+
+    /* Fade in on page load */
+    animation: fadeDown 0.5s ease forwards;
+}
+
+/* Logo — uses Bebas Neue for cinematic feel
+   Gradient text gives it a premium look */
+nav .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 3px;
+    /* Gradient from accent blue to lighter blue */
+    background: linear-gradient(135deg, var(--accent-light), #93c5fd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-right: 16px;
+    /* pushes nav links away from logo */
+    transition: opacity var(--transition);
+}
+
+nav .logo:hover {
+    opacity: 0.8;
+}
+
+/* Nav links */
+nav a:not(.logo) {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--muted);
+    letter-spacing: 0.5px;
+    padding: 6px 0;
+    /* Underline grows from left on hover using pseudo element trick */
+    position: relative;
+    transition: color var(--transition);
+}
+
+/* The underline effect — a pseudo element that scales in on hover */
+nav a:not(.logo)::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--accent);
+    transform: scaleX(0);
+    /* hidden by default */
+    transform-origin: left;
+    transition: transform var(--transition);
+}
+
+nav a:not(.logo):hover {
+    color: var(--text);
+}
+
+nav a:not(.logo):hover::after {
+    transform: scaleX(1);
+    /* slides in on hover */
+}
+
+/* ============================================================
+   MAIN CONTENT AREA
+   padding-top pushes content below the fixed nav
+   ============================================================ */
+main {
+    padding-top: calc(var(--nav-height) + 40px);
+    padding-bottom: 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+/* ============================================================
+   HOME PAGE — HERO SECTION
+   ============================================================ */
+.hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+    /* Radial gradient creates a subtle blue glow in the center */
+    background: radial-gradient(ellipse at center, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
+    border-radius: 24px;
+    margin-bottom: 60px;
+    animation: fadeUp 0.6s ease forwards;
+}
+
+.hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    /* clamp = responsive font size */
+    letter-spacing: 6px;
+    line-height: 1;
+    /* Same gradient technique as logo */
+    background: linear-gradient(135deg, #ffffff 0%, var(--accent-light) 50%, #93c5fd 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 500px;
+    margin: 0 auto 36px;
+}
+
+/* Hero CTA buttons */
+.hero-buttons {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* ============================================================
+   BUTTONS
+   Two variants: primary (filled) and secondary (outlined)
+   ============================================================ */
+.btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 32px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+    transition: all var(--transition);
+    /* Blue glow shadow */
+    box-shadow: 0 4px 20px var(--accent-glow);
+}
+
+.btn-primary:hover {
+    background: var(--accent-light);
+    transform: translateY(-2px);
+    /* subtle lift on hover */
+    box-shadow: 0 8px 30px var(--accent-glow);
+}
+
+.btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 32px;
+    background: transparent;
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all var(--transition);
+}
+
+.btn-secondary:hover {
+    background: var(--card);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+/* ============================================================
+   SEARCH BAR
+   Used on movies.html and shows.html
+   ============================================================ */
+.search-section {
+    margin-bottom: 48px;
+    animation: fadeUp 0.5s ease forwards;
+}
+
+.search-section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 3px;
+    color: var(--text);
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    display: flex;
+    gap: 12px;
+    max-width: 600px;
+}
+
+/* Search input */
+.search-bar input {
+    flex: 1;
+    /* takes up remaining space */
+    padding: 14px 20px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+/* Glowing border on focus */
+.search-bar input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+.search-bar input::placeholder {
+    color: var(--muted);
+}
+
+/* Search button — reuses btn-primary styles */
+.search-bar button {
+    padding: 14px 28px;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition);
+    box-shadow: 0 4px 20px var(--accent-glow);
+    white-space: nowrap;
+}
+
+.search-bar button:hover {
+    background: var(--accent-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px var(--accent-glow);
+}
+
+/* ============================================================
+   RESULTS GRID
+   CSS Grid auto-fills columns based on available space
+   minmax(180px, 1fr) = minimum 180px, max 1 fraction of space
+   This makes it automatically responsive without media queries
+   ============================================================ */
+#results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 24px;
+    animation: fadeUp 0.4s ease forwards;
+}
+
+/* Status messages (no results, type something, etc.) */
+#results-grid p {
+    grid-column: 1 / -1;
+    /* spans all columns */
+    text-align: center;
+    color: var(--muted);
+    font-size: 1rem;
+    padding: 60px 0;
+}
+
+/* ============================================================
+   MOVIE & SHOW CARDS
+   The <a> tag wraps the card so the whole thing is clickable
+   ============================================================ */
+#results-grid a {
+    display: block;
+    border-radius: var(--radius);
+    /* overflow hidden clips the image zoom effect to card bounds */
+    overflow: hidden;
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+#results-grid a:hover {
+    transform: translateY(-6px) scale(1.02);
+    /* lifts and slightly scales */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 0 1px var(--accent-glow);
+}
+
+.movie-card,
+.show-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1px solid var(--border);
+    height: 100%;
+    /* staggered fade in — each card appears slightly after the previous */
+    animation: fadeUp 0.4s ease forwards;
+}
+
+/* Poster image */
+.movie-card img,
+.show-card img {
+    width: 100%;
+    aspect-ratio: 2/3;
+    /* standard movie poster ratio */
+    object-fit: cover;
+    /* fills space without stretching */
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+/* Image zooms in slightly when card is hovered */
+#results-grid a:hover img {
+    transform: scale(1.05);
+}
+
+/* Card text info below the poster */
+.movie-card h3,
+.show-card h3 {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+    padding: 12px 12px 4px;
+    /* Clamps to 2 lines then shows ellipsis for long titles */
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.movie-card p,
+.show-card p {
+    font-size: 0.78rem;
+    color: var(--muted);
+    padding: 0 12px 12px;
+}
+
+/* ============================================================
+   PLAYER PAGE
+   ============================================================ */
+.player-section {
+    animation: fadeUp 0.5s ease forwards;
+}
+
+.player-section h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    color: var(--text);
+}
+
+/* Player container wraps the iframe */
+#player-container {
+    width: 100%;
+    border-radius: 14px;
+    overflow: hidden;
+    /* clips iframe to rounded corners */
+    border: 1px solid var(--border);
+    /* Dramatic shadow with blue tint */
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px var(--accent-glow);
+}
+
+/* The iframe itself */
+#player-container iframe {
+    display: block;
+    /* removes inline spacing gap */
+    width: 100%;
+    height: 600px;
+    border: none;
+}
+
+/* Back button on player page */
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 24px;
+    transition: color var(--transition), gap var(--transition);
+    cursor: pointer;
+}
+
+.back-btn:hover {
+    color: var(--text);
+    gap: 12px;
+    /* arrow moves right on hover */
+}
+
+/* ============================================================
+   ANIMATIONS
+   Simple, purposeful — fade up for content, fade down for nav
+   ============================================================ */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ============================================================
+   RESPONSIVE — MOBILE
+   Below 600px we make the layout work on small screens
+   ============================================================ */
+@media (max-width: 600px) {
+    nav {
+        padding: 0 20px;
+        gap: 20px;
+    }
+
+    nav .logo {
+        font-size: 1.3rem;
+    }
+
+    .search-bar {
+        flex-direction: column;
+        /* stack input and button vertically */
+    }
+
+    #player-container iframe {
+        height: 240px;
+        /* shorter player on mobile */
+    }
+
+    #results-grid {
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        gap: 16px;
+    }
+}
+
+@media (max-width: 900px) {
+    nav {
+        padding: 0 24px;
+    }
+
+    main {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}

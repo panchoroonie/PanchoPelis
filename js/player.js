@@ -4,6 +4,12 @@ const type = params.get('type');
 
 const playerContainer = document.getElementById('player-container');
 
+// points back button to movies or shows depending on type
+const backBtn = document.getElementById('back-btn');
+// basically saying if move go back to movie results else go back to show results
+backBtn.href = type === 'movie' ? 'movies.html' : 'shows.html';
+
+//handles the difference url calls for movies and shows using their type
 if(type === 'movie'){
     playerContainer.innerHTML = `
     <iframe
