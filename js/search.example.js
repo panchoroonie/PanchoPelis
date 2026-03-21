@@ -1,4 +1,7 @@
-const Token = 'YOUR_API_KEY_HERE';
+//Copy this file with the name search.js and delete this one
+//get your own api key by signing up for https://www.themoviedb.org
+
+const TOKEN = 'YOUR_API_KEY_HERE';
 async function searchMovies(query){
     const resultsGrid = document.getElementById('results-grid');
 
