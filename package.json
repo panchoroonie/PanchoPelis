@@ -1,0 +1,39 @@
+{
+  "name": "panchopelis",
+  "version": "1.0.0",
+  "description": "A personal movie and TV show streaming app. Search for any movie or show and watch it directly in the browser.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder"
+  },
+  "build":{
+    "appId": "com.panchopelis.app",
+    "productName": "Panchopelis",
+    "directories": {
+      "output": "dist"
+    },
+    "win":{
+      "target" : "nsis"
+    },
+    "mac":{
+      "target": "dmg"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/panchoroonie/PanchoPelis.git"
+  },
+  "keywords": [],
+  "author": "panchoroonie",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/panchoroonie/PanchoPelis/issues"
+  },
+  "homepage": "https://github.com/panchoroonie/PanchoPelis#readme",
+  "devDependencies": {
+    "electron": "^41.0.3",
+    "electron-builder": "^26.8.1"
+  }
+}
