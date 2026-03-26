@@ -2,10 +2,12 @@
 //get your own api key by signing up for https://www.themoviedb.org
 
 const TOKEN = 'YOUR_API_KEY_HERE';
+//function to search movies
 async function searchMovies(query){
+    //declares the results grid dynamically filling div in the html
     const resultsGrid = document.getElementById('results-grid');
 
-    // ping the movie data base and search for typed word
+    // check if the search is empty
     if(query === ''){
         resultsGrid.innerHTML = `
             <p>type something to search</p>
@@ -26,8 +28,10 @@ async function searchMovies(query){
 
     const movies = data.results;
 
+    //clear the results before adding result to the grid
     resultsGrid.innerHTML = '';
 
+    //if there are no results say something
     if(movies.length < 1){
         resultsGrid.innerHTML = `
             <p>no results found</p>
@@ -35,6 +39,7 @@ async function searchMovies(query){
         return;
     }
 
+    //go through each movie getting their data then making amovie card out of it and adding it to the result list
     for(const movie of data.results) {
         resultsGrid.innerHTML += `
             <a href="player.html?id=${movie.id}&type=movie">
@@ -50,8 +55,10 @@ async function searchMovies(query){
 }
 
 async function searchShows(query){
+    //declares the results grid dynamically filling div in the html
     const resultsGrid = document.getElementById('results-grid');
 
+    // check if the search is empty
     if(query === ''){
         resultsGrid.innerHTML = `
             <p>type something to search</p>
@@ -72,8 +79,10 @@ async function searchShows(query){
 
     const shows = data.results;
 
+    //clear the results before adding result to the grid
     resultsGrid.innerHTML = '';
 
+    //if there are no results say something
     if (shows.length < 1){
         resultsGrid.innerHTML = `
             <p>no results found</p>
@@ -81,6 +90,7 @@ async function searchShows(query){
         return;
     }
 
+    //go through each shows getting their data then making amovie card out of it and adding it to the result list
     for(const show of shows){
         resultsGrid.innerHTML += `
             <a href="player.html?id=${show.id}&type=tv">
@@ -97,9 +107,24 @@ async function searchShows(query){
 
 }
 
+//search button logic
 const searchBtn = document.getElementById('search-btn');
 const searchInput = document.getElementById('search-input');
 const currPage = window.location.pathname;
+
+// check if to use searchMovies or searchShows based on their pathname
+//also check for enter key OR the search button press
+searchInput.addEventListener('keydown', function(key){
+    const query = searchInput.value;
+
+    if(key.key === 'Enter'){
+        if(currPage.includes("movies")){
+            searchMovies(query);
+        }else if(currPage.includes("shows")){
+            searchShows(query);
+        }
+    }
+})
 
 searchBtn.addEventListener('click', function() {
     const query = searchInput.value;

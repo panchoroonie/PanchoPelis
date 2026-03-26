@@ -13,6 +13,11 @@ function createWindow(){
         }
     });
 
+    // block all new windows works like an AD blocker for the API
+    win.webContents.setWindowOpenHandler(() => {
+        return {action : 'deny' }
+    })
+
     // tell electron to load index.hrml as the starting page
     win.loadFile('index.html');
 }
