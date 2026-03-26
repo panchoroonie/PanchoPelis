@@ -4,19 +4,9 @@ A personal movie and TV show streaming desktop app built with Electron. Search f
 
 ---
 
-## Installation
+## Building & Running
 
-### Windows
-Download and run `Panchopelis-Setup-1.0.0.exe`
-
-### Mac
-Download and open `Panchopelis-1.0.0.dmg`, then drag the app to your Applications folder.
-
-> **Mac users:** If macOS blocks the app on first launch, right click the app → Open → Open Anyway.
-
----
-
-## Running From Source
+Since distributable files exceed GitHub's file size limits, you'll need to build the app yourself. Don't worry — it only takes a few minutes.
 
 ### Prerequisites
 - [Node.js](https://nodejs.org)
@@ -58,11 +48,15 @@ Then open `js/search.js` and replace `YOUR_TOKEN_HERE` with your TMDB Bearer tok
 npm start
 ```
 
-### 6. Build a distributable
+### 6. Build a distributable for your OS
 ```bash
 npm run build
 ```
-Output will be in the `dist/` folder.
+Output will be in the `dist/` folder:
+- **Windows** → `Panchopelis Setup 1.x.x.exe`
+- **Mac** → `Panchopelis-1.x.x.dmg`
+
+> **Mac users:** If macOS blocks the app on first launch, right click the app → Open → Open Anyway.
 
 ---
 
